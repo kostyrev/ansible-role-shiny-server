@@ -1,0 +1,12 @@
+---
+dependency:
+  name: galaxy
+driver:
+  name: docker
+docker:
+  containers:
+    - name: kostyrev.shiny-server
+      image: ubuntu
+      image_version: 16.04
+verifier:
+  name: testinfra

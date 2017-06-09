@@ -1,0 +1,2 @@
+[all]
+kostyrev.shiny-server ansible_connection=docker

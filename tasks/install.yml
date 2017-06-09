@@ -1,0 +1,35 @@
+- name: install | create (download) directory
+  file:
+    path: "{{ shiny_server_downloads_path }}"
+    state: directory
+    owner: root
+    group: root
+    mode: 0755
+  tags:
+    - shiny-server-install-download
+    - shiny-server-install-download-directory
+
+- name: install | download deb
+  get_url:
+    url: "https://download3.rstudio.org/ubuntu-12.04/x86_64/shiny-server-{{ shiny_server_version }}-{{ shiny_server_machine_map[ansible_machine] }}.deb"
+    dest: "{{ shiny_server_downloads_path }}/shiny-server-{{ shiny_server_version }}_{{ shiny_server_machine_map[ansible_machine] }}.deb"
+    mode: 0440
+    validate_certs: no
+
+# - name: install | download deb
+#   command: >
+#     curl -sSL
+#     https://download2.rstudio.org/shiny-server-{{ shiny_server_version }}-{{ shiny_server_machine_map[ansible_machine] }}.deb
+#     -o {{ shiny_server_downloads_path }}/shiny-server_{{ shiny_server_version }}_{{ shiny_server_machine_map[ansible_machine] }}.deb
+#   args:
+#     creates: "{{ shiny_server_downloads_path }}/shiny-server_{{ shiny_server_version }}_{{ shiny_server_machine_map[ansible_machine] }}.deb"
+#   tags:
+#     - shiny-server-install-download
+#     - shiny-server-install-download-deb
+
+- name: install | install deb
+  apt:
+    deb: "{{ shiny_server_downloads_path }}/shiny-server-{{ shiny_server_version }}_{{ shiny_server_machine_map[ansible_machine] }}.deb"
+  tags:
+    - shiny-server-install-install
+    - shiny-server-install-install-deb

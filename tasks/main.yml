@@ -1,0 +1,9 @@
+---
+# tasks file for kostyrev.shiny-server
+- include: install.yml
+
+- name: start and enable service
+  service:
+    name: shiny-server
+    state: started
+    enabled: true
